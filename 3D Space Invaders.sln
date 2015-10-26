@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D Space Invaders.CSharp", "3D Space Invaders.CSharp.csproj", "{F2827E12-6D0F-2680-5CDF-33EC80C94DA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D Space Invaders.CSharp.Editor", "3D Space Invaders.CSharp.Editor.csproj", "{DBC153B0-E9DB-B83F-E89B-97E7BE8731F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2827E12-6D0F-2680-5CDF-33EC80C94DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2827E12-6D0F-2680-5CDF-33EC80C94DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2827E12-6D0F-2680-5CDF-33EC80C94DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2827E12-6D0F-2680-5CDF-33EC80C94DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBC153B0-E9DB-B83F-E89B-97E7BE8731F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBC153B0-E9DB-B83F-E89B-97E7BE8731F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBC153B0-E9DB-B83F-E89B-97E7BE8731F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBC153B0-E9DB-B83F-E89B-97E7BE8731F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
