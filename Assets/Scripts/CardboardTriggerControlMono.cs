@@ -4,7 +4,6 @@ using System.Collections;
 public class CardboardTriggerControlMono : MonoBehaviour
 {
     public bool magnetDetectionEnabled = true;
-    public GameObject Cube;
 
     void Start()
     {
@@ -18,7 +17,13 @@ public class CardboardTriggerControlMono : MonoBehaviour
         if (CardboardMagnetSensor.CheckIfWasClicked())
         {
             Debug.Log("DO SOMETHING HERE");  // PERFORM ACTION.
-            Instantiate(Cube, transform.position, Quaternion.identity);
+
+            print("Trigger pressed spawning cube");
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.AddComponent<Rigidbody>();
+            cube.transform.position = new Vector3(0, 1, 0);
+
+
             CardboardMagnetSensor.ResetClick();
         }
     }
