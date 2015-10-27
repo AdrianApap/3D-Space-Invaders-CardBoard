@@ -12,7 +12,7 @@ public class ShootLaser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey("space"))
+        if (Input.GetKey("space") || Cardboard.SDK.Triggered)
         {
             print("Shooting");
             this.shoot();

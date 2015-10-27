@@ -90,9 +90,6 @@
     <Compile Include="Assets\Cardboard\Scripts\VRDevices\CardboardAndroidDevice.cs" />
     <Compile Include="Assets\Cardboard\Scripts\VRDevices\CardboardiOSDevice.cs" />
     <Compile Include="Assets\Cardboard\Scripts\VRDevices\UnityEditorDevice.cs" />
-    <Compile Include="Assets\Scripts\CardboardMagnetSensor.cs" />
-    <Compile Include="Assets\Scripts\CardboardTriggerControlMono.cs" />
-    <Compile Include="Assets\Scripts\KeyTest.cs" />
     <Compile Include="Assets\Scripts\ShootLaser.cs" />
   </ItemGroup>
   <ItemGroup>
