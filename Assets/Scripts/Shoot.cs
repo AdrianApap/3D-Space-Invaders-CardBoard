@@ -20,7 +20,7 @@ public class Shoot : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane))
             {
                 print("Hit");
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 10; i++)
                 {
                    // Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;
                     Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;

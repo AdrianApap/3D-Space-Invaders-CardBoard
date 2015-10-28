@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Shoot.cs" />
     <Compile Include="Assets\Scripts\ShootBall.cs" />
     <Compile Include="Assets\Scripts\ShowCrossHair.cs" />
+    <Compile Include="Assets\Scripts\SpawnInvaders.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Cardboard\Distortion\CardboardDistortion.cginc" />
