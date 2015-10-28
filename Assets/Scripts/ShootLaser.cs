@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShootLaser : MonoBehaviour {
     public Rigidbody projectile;
-    public float speed = 20;
+    public float speed = 30;
 
     // Use this for initialization
     void Start () {
@@ -22,6 +22,6 @@ public class ShootLaser : MonoBehaviour {
     void shoot()
     {
         Rigidbody myBullet = Instantiate(projectile, transform.position, transform.rotation) as Rigidbody;
-        myBullet.velocity = transform.TransformDirection(new Vector3(Camera.main.transform.eulerAngles.y, 360-Camera.main.transform.eulerAngles.x, speed));
+        myBullet.velocity = transform.TransformDirection(new Vector3(0,0, speed));
     }
 }
