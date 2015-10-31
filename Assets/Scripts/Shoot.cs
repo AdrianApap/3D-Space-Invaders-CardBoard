@@ -3,10 +3,23 @@ using System.Collections;
 
 public class Shoot : MonoBehaviour
 {
+    public AudioClip shootSound;
     public Rigidbody dead_invader_block;
     public float damage = 100;
     private Ray ray;
     private RaycastHit hit;
+
+    private AudioSource source;
+    private float volLowRange = .5f;
+    private float volHighRange = 1.0f;
+
+
+    void Awake()
+    {
+
+        source = GetComponent<AudioSource>();
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -16,6 +29,8 @@ public class Shoot : MonoBehaviour
             print("Shooting");
             Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
             ray = Camera.main.ScreenPointToRay(screenCenter);
+            float vol = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(shootSound, vol);
 
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane))
             {

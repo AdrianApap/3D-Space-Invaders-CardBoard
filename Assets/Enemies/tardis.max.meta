@@ -4,7 +4,39 @@ timeCreated: 1446047507
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: Armature
+    100002: ground
+    100004: TARDIS
+    100006: //RootNode
+    100008: TARDIS_0
+    100010: TARDIS_Bulb
+    100012: TARDIS_door
+    100014: TARDIS_Glass1
+    100016: TARDIS_Glass2
+    100018: TARDIS_Inside
+    400000: Armature
+    400002: ground
+    400004: TARDIS
+    400006: //RootNode
+    400008: TARDIS_0
+    400010: TARDIS_Bulb
+    400012: TARDIS_door
+    400014: TARDIS_Glass1
+    400016: TARDIS_Glass2
+    400018: TARDIS_Inside
+    4300000: TARDIS_Inside
+    4300002: TARDIS_Bulb
+    4300004: TARDIS_Glass2
+    4300006: TARDIS
+    4300008: TARDIS_Glass1
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: TARDIS
+    13700002: TARDIS_Bulb
+    13700004: TARDIS_Glass1
+    13700006: TARDIS_Glass2
+    13700008: TARDIS_Inside
   materials:
     importMaterials: 1
     materialName: 0
