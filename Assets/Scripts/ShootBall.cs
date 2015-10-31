@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShootLaser : MonoBehaviour {
-    public Rigidbody projectile;
+public class ShootBall : MonoBehaviour {
+    public GameObject projectile;
     public float speed = 30;
 
     // Use this for initialization

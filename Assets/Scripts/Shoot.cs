@@ -16,14 +16,13 @@ public class Shoot : MonoBehaviour
 
     void Awake()
     {
-
         source = GetComponent<AudioSource>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKey("space") || Cardboard.SDK.Triggered)
         {
             print("Shooting");
@@ -31,13 +30,14 @@ public class Shoot : MonoBehaviour
             ray = Camera.main.ScreenPointToRay(screenCenter);
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(shootSound, vol);
-
+ 
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane))
             {
                 print("Hit");
+                Debug.DrawLine(transform.position, hit.point, Color.red);
+
                 for (int i = 0; i < 10; i++)
                 {
-                   // Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;
                     Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;
                     Destroy(deadBlocks.gameObject, 3);
                 }
