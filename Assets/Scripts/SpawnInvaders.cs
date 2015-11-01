@@ -5,6 +5,7 @@ public class SpawnInvaders : MonoBehaviour {
     public static int invaderCount = 20;
     public GameObject invader;
     private GameObject[] invaders;
+    public Transform target;
 
     // Use this for initialization
     void Start () {
@@ -17,6 +18,7 @@ public class SpawnInvaders : MonoBehaviour {
         for (int i = 0; i < invaderCount; i++)
         {
             Vector3 pos = invaders[i].transform.position;
+            invaders[i].transform.LookAt(target);
             invaders[i].transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
         }
 	}
