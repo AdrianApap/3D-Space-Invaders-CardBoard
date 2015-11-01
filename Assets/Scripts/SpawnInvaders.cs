@@ -17,9 +17,12 @@ public class SpawnInvaders : MonoBehaviour {
 	void Update () {
         for (int i = 0; i < invaderCount; i++)
         {
-            Vector3 pos = invaders[i].transform.position;
-            invaders[i].transform.LookAt(target);
-            invaders[i].transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
+            if (invaders[i] != null)
+            {
+                Vector3 pos = invaders[i].transform.position;
+                invaders[i].transform.LookAt(target);
+                invaders[i].transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
+            }
         }
 	}
 
@@ -29,6 +32,14 @@ public class SpawnInvaders : MonoBehaviour {
         {
             Vector3 pos = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50));
             invaders[i] = Instantiate(invader, pos, transform.rotation) as GameObject;
+            invaders[i].name = i.ToString();
         }
+    }
+
+    void hitInvaderRemove(string name)
+    {
+        int index = 0;
+        System.Int32.TryParse(name, out index);
+        invaders[index] = null;
     }
 }

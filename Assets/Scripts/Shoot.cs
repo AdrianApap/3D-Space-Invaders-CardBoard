@@ -49,6 +49,7 @@ public class Shoot : MonoBehaviour
                         Destroy(deadBlocks.gameObject, 3);
                     }
                     hit.transform.SendMessage("hitInvader", damage, SendMessageOptions.DontRequireReceiver);
+                    hit.transform.SendMessage("hitInvaderRemove", hit.collider.name, SendMessageOptions.DontRequireReceiver);
                 }
             }
         }
