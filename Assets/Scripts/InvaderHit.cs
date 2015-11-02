@@ -16,6 +16,7 @@ public class InvaderHit : MonoBehaviour {
 
     void hitInvader(float damage)
     {
+        print("In Invader Hit Script Removing " + damage+ " HP");
         health -= damage;
     }
 

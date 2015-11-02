@@ -38,8 +38,13 @@ public class SpawnInvaders : MonoBehaviour {
 
     void hitInvaderRemove(string name)
     {
+        print("spawned new invader after killing invader " + name);
         int index = 0;
         System.Int32.TryParse(name, out index);
-        invaders[index] = null;
+        print(index);
+        //invaders[index] = null;
+        Vector3 pos = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50));
+        invaders[index] = Instantiate(invader, pos, transform.rotation) as GameObject;
+        invaders[index].name = index.ToString();
     }
 }

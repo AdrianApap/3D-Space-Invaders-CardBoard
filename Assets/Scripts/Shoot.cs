@@ -48,8 +48,10 @@ public class Shoot : MonoBehaviour
                         Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;
                         Destroy(deadBlocks.gameObject, 3);
                     }
+                    //send message to children of gun object which is child of main camera
                     hit.transform.SendMessage("hitInvader", damage, SendMessageOptions.DontRequireReceiver);
-                    hit.transform.SendMessage("hitInvaderRemove", hit.collider.name, SendMessageOptions.DontRequireReceiver);
+                    //Broadcast message to all children of camera
+                    Camera.main.BroadcastMessage("hitInvaderRemove", hit.collider.name, SendMessageOptions.DontRequireReceiver);
                 }
             }
         }
