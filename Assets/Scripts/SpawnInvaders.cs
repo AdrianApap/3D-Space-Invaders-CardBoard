@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SpawnInvaders : MonoBehaviour {
     public static int invaderCount = 20;
+    public int step = 1;
     public GameObject invader;
     private GameObject[] invaders;
     public Transform target;
@@ -21,7 +22,7 @@ public class SpawnInvaders : MonoBehaviour {
             {
                 Vector3 pos = invaders[i].transform.position;
                 invaders[i].transform.LookAt(target);
-                invaders[i].transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
+                invaders[i].transform.position = Vector3.MoveTowards(invaders[i].transform.position, new Vector3(0,0,0), 1 * step * Time.deltaTime);
             }
         }
 	}
@@ -30,7 +31,8 @@ public class SpawnInvaders : MonoBehaviour {
     {
         for (int i = 0; i < invaderCount; i++)
         {
-            Vector3 pos = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50));
+            int[] posArray = makeNew();
+            Vector3 pos = new Vector3(posArray[0], posArray[1], posArray[2]);
             invaders[i] = Instantiate(invader, pos, transform.rotation) as GameObject;
             invaders[i].name = i.ToString();
         }
@@ -43,8 +45,43 @@ public class SpawnInvaders : MonoBehaviour {
         System.Int32.TryParse(name, out index);
         print(index);
         //invaders[index] = null;
-        Vector3 pos = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50));
+        int[] posArray = makeNew();
+        Vector3 pos = new Vector3(posArray[0], posArray[1], posArray[2]);
         invaders[index] = Instantiate(invader, pos, transform.rotation) as GameObject;
         invaders[index].name = index.ToString();
+    }
+    //to make them not spawn close to the camera
+    int[] makeNew()
+    {
+        int x = Random.Range(-50, 50);
+        int y = Random.Range(-50, 50);
+        int z = Random.Range(-50, 50);
+
+        if (x < 0)
+        {
+            x -= 10;
+        }
+        else
+        {
+            x += 10;
+        }
+        if (y < 0)
+        {
+            y -= 10;
+        }
+        else
+        {
+            y += 10;
+        }
+        if (z < 0)
+        {
+            z -= 10;
+        }
+        else
+        {
+            z += 10;
+        }
+        int[] pos = new int[3] { x, y, z };
+        return pos;
     }
 }
