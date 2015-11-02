@@ -73,6 +73,7 @@ public class Shoot : MonoBehaviour
                 hit.transform.SendMessage("hitInvader", damage, SendMessageOptions.DontRequireReceiver);
                 //Broadcast message to all children of camera
                 Camera.main.BroadcastMessage("hitInvaderRemove", hit.collider.name, SendMessageOptions.DontRequireReceiver);
+                Camera.main.BroadcastMessage("increaseScore", null, SendMessageOptions.DontRequireReceiver);
             }
         }
     }
