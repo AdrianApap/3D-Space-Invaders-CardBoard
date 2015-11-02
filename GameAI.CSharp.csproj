@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\ShowCrossHair.cs" />
     <Compile Include="Assets\Scripts\ShowScore.cs" />
     <Compile Include="Assets\Scripts\SpawnInvaders.cs" />
+    <Compile Include="Assets\Scripts\healthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Cardboard\Distortion\CardboardDistortion.cginc" />
