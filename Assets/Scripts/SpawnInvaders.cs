@@ -34,7 +34,7 @@ public class SpawnInvaders : MonoBehaviour {
             int[] posArray = makeNew();
             Vector3 pos = new Vector3(posArray[0], posArray[1], posArray[2]);
             invaders[i] = Instantiate(invader, pos, transform.rotation) as GameObject;
-            invaders[i].name = i.ToString();
+            invaders[i].name = "Spawn" + i.ToString();
         }
     }
 

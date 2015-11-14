@@ -4,7 +4,7 @@ using System.Collections;
 public class healthBar : MonoBehaviour
 {
     public Texture tex;
-    int lives = 3;
+    public int lives = 3;
 
     private float texWidth;
     private float texHeight;
