@@ -8,16 +8,15 @@ public class ShowCrossHair : MonoBehaviour {
     public Rect rightCrosshairRect;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         float crosshairSize = Screen.width * 0.1f;
         leftCrosshairRect = new Rect((Screen.width / 4) - (crosshairSize / 2),
             (Screen.height / 2) - (crosshairSize / 2), crosshairSize, crosshairSize);
-        rightCrosshairRect = new Rect((Screen.width / 2)+(Screen.width / 4) - (crosshairSize / 2),
+        rightCrosshairRect = new Rect((Screen.width / 2) + (Screen.width / 4) - (crosshairSize / 2),
              (Screen.height / 2) - (crosshairSize / 2), crosshairSize, crosshairSize);
     }
 
-    void OnGUI()
-    {
+    void OnGUI() {
         GUI.Label(leftCrosshairRect, crossHairImage);
         GUI.Label(rightCrosshairRect, crossHairImage);
     }

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shoot : MonoBehaviour
-{
+public class Shoot : MonoBehaviour {
     public Rigidbody dead_invader_block;
     public GameObject LaserBeam;
     public float damage = 100;
@@ -17,18 +16,14 @@ public class Shoot : MonoBehaviour
     private float volHighRange = 1.0f;
 
 
-    void Awake()
-    {
+    void Awake() {
         source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey("space") || Cardboard.SDK.Triggered)
-        {
-            if (Time.time > nextFire)
-            {
+    void Update() {
+        if (Input.GetKey("space") || Cardboard.SDK.Triggered) {
+            if (Time.time > nextFire) {
                 nextFire = Time.time + fireRate;
                 print("Shooting");
                 shoot();
@@ -36,8 +31,7 @@ public class Shoot : MonoBehaviour
         }
     }
 
-    void shoot()
-    {
+    void shoot() {
         //Create particle laser and destroy after 5 seconds
         GameObject laserBeamI = Instantiate(LaserBeam, transform.position, transform.rotation) as GameObject;
         Destroy(laserBeamI, 5);
@@ -55,16 +49,13 @@ public class Shoot : MonoBehaviour
         float vol = Random.Range(volLowRange, volHighRange);
         source.PlayOneShot(shootSound, vol);
 
-        if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane))
-        {
+        if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane)) {
             //If the object that the ray hits is an invader destroy the invader
-            if (hit.collider.CompareTag("SpaceInvader"))
-            {
+            if (hit.collider.CompareTag("SpaceInvader")) {
                 print("Hit Invader");
 
                 //Spawn some Blocks where the ray hits to simulate explosion
-                for (int i = 0; i < 10; i++)
-                {
+                for (int i = 0; i < 10; i++) {
                     Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;
                     Destroy(deadBlocks.gameObject, 3);
                 }
