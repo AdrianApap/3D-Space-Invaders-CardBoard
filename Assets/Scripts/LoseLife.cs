@@ -8,6 +8,7 @@ public class LoseLife : MonoBehaviour {
             GameObject gui = GameObject.Find("GUI");
             healthBar bar = gui.GetComponent<healthBar>();
             bar.lives -= 1;
+            Handheld.Vibrate();
             print("Lost Life");
             Destroy(gameObject);
         }

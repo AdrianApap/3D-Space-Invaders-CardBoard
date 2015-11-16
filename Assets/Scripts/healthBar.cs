@@ -14,14 +14,18 @@ public class healthBar : MonoBehaviour {
     }
 
     void OnGUI() {
+        GameObject gui = GameObject.Find("GUI");
+        Score score = gui.GetComponent<Score>();
+
         if (lives > 0) {
             for (int i = 0; i < lives; i++) {
-                Rect posRect = new Rect(20 + (i * 30), 20, texWidth * lives, texHeight);
-                GUI.DrawTexture(posRect, tex);
+                Rect rectLeft = new Rect((score.getX() + (i * 30)), 50 + (score.getY() + score.getScoreHeight() + 20), texWidth * lives, texHeight);
+                Rect rectRight = new Rect(((Screen.width / 2) + (score.getX() + (i * 30))), 50 + (score.getY() + score.getScoreHeight() + 20), texWidth * lives, texHeight);
+
+                GUI.DrawTexture(rectLeft, tex);
+                GUI.DrawTexture(rectRight, tex);
             }
         } else {
-            GameObject gui = GameObject.Find("GUI");
-            Score score = gui.GetComponent<Score>();
             lives = 3;
             score.zeroLives();
         }
