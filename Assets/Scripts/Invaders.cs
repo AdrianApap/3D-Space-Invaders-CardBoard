@@ -46,8 +46,8 @@ public class Invaders : MonoBehaviour {
     //to make them not spawn close to the camera
     Vector3 makeNew() {
         int x = Random.Range(-50, 50);
-        int y = Random.Range(-50, 50);
-        int z = Random.Range(-50, 50);
+        int y = Random.Range(-10, 70);
+        int z = Random.Range(10, 60);
 
         if (x < 0) {
             x -= 10;
