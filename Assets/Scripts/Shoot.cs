@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Shoot : MonoBehaviour {
-    public Rigidbody dead_invader_block;
+    public GameObject Explosion_Particle;
     public GameObject LaserBeam;
     public float damage = 100;
     public float fireRate = 0.5f;
@@ -55,10 +55,8 @@ public class Shoot : MonoBehaviour {
                 print("Hit Invader");
 
                 //Spawn some Blocks where the ray hits to simulate explosion
-                for (int i = 0; i < 10; i++) {
-                    Rigidbody deadBlocks = Instantiate(dead_invader_block, hit.point, Quaternion.LookRotation(hit.normal)) as Rigidbody;
-                    Destroy(deadBlocks.gameObject, 3);
-                }
+                GameObject explosionSpawn = Instantiate(Explosion_Particle, hit.point, Quaternion.LookRotation(hit.normal)) as GameObject;
+                Destroy(explosionSpawn, 3);
 
                 //send message to children of gun object which is child of main camera
                 hit.transform.SendMessage("hitInvader", damage, SendMessageOptions.DontRequireReceiver);

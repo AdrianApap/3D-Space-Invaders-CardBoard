@@ -129,6 +129,7 @@
     <None Include="Assets\Cardboard\Resources\SkyboxMesh.shader" />
     <None Include="Assets\Cardboard\Resources\SolidColor.shader" />
     <None Include="Assets\Cardboard\Resources\UnlitTexture.shader" />
+    <None Include="Assets\Elementals\!Readme.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
