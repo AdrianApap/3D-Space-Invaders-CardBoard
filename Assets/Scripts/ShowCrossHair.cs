@@ -4,8 +4,8 @@ using System.Collections;
 public class ShowCrossHair : MonoBehaviour {
 
     public Texture crossHairImage;
-    public Rect leftCrosshairRect;
-    public Rect rightCrosshairRect;
+    private Rect leftCrosshairRect;
+    private Rect rightCrosshairRect;
 
     // Use this for initialization
     void Start() {

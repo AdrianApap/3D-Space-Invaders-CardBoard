@@ -2,29 +2,34 @@
 using System.Collections;
 
 public class Score : MonoBehaviour {
-    public Rect leftCrosshairRect;
-    public Rect rightCrosshairRect;
     public string scoreLabel = "Score: ";
     public string highScoreLabel = "High Score: ";
-    public Font scoreFont;
+    private int scoreFontScale;
     private int score = 0;
     private int highScore = 0;
-    private int scoreX = 100;
-    private int scoreY = 100;
+    private int scoreY;
     private int scoreHeight = 30;
-    private int scoreWidth = 200;
-    private GUIStyle guiStyle = new GUIStyle();
-    
+    private int scoreWidth;
+    private GUIStyle guiStyle;
+
+    void Start() {
+        scoreFontScale = Screen.height / 16;
+        scoreY = ((Screen.height / 8) + (scoreFontScale / 2));
+
+        guiStyle = new GUIStyle();
+        guiStyle.fontSize = (Screen.width / Screen.height) * scoreFontScale;
+        guiStyle.normal.textColor = Color.white;
+    }
 
     void OnGUI() {
-        //guiStyle.font = scoreFont;
-        guiStyle.fontSize = 80;
-        guiStyle.normal.textColor = Color.white;
-        string tmp = scoreLabel + score + " " + highScoreLabel + highScore;
+        useGUILayout = false;
+        // string tmp = scoreLabel + score + " " + highScoreLabel + highScore;
+        string tmp = scoreLabel + score;
+        scoreWidth = (tmp.Length * scoreFontScale) / 2;
         //Left label
-        GUI.Label(new Rect(scoreX, scoreY, scoreWidth, scoreHeight), tmp, guiStyle);
+        GUI.Label(new Rect((Screen.width / 2) - (scoreWidth + (Screen.width / 32)), scoreY, scoreWidth, scoreHeight), tmp, guiStyle);
         //Right label
-        GUI.Label(new Rect((Screen.width / 2) + scoreX, scoreY, 200, 30), tmp, guiStyle);
+        GUI.Label(new Rect(Screen.width - (scoreWidth + (Screen.width / 32)), scoreY, scoreWidth, scoreHeight), tmp, guiStyle);
     }
 
     void increaseScore() {
@@ -32,25 +37,9 @@ public class Score : MonoBehaviour {
     }
 
     public void zeroLives() {
-        if(score > highScore) {
+        if (score > highScore) {
             highScore = score;
         }
         score = 0;
-    }
-
-    public int getX() {
-        return scoreX;
-    }
-
-    public int getY() {
-        return scoreY;
-    }
-
-    public int getScoreHeight() {
-        return scoreHeight;
-    }
-
-    public int getScoreWidth() {
-        return scoreWidth;
     }
 }

@@ -1,26 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class healthBar : MonoBehaviour {
+public class HealthBar : MonoBehaviour {
     public Texture tex;
     public int lives = 3;
 
     private float texWidth;
     private float texHeight;
 
+    GameObject myInavderSpawner;
+    GameManager myManager;
+    GameObject gui;
+    Score score;
+
+
     void Start() {
-        texWidth = 10;
-        texHeight = 30;
+        texWidth = Screen.height / 8;
+        texHeight = Screen.height / 8;
+
+        myInavderSpawner = GameObject.Find("InvaderSpawn");
+        myManager = myInavderSpawner.GetComponent<GameManager>();
+        gui = GameObject.Find("GUI");
+        score = gui.GetComponent<Score>();
     }
 
     void OnGUI() {
-        GameObject gui = GameObject.Find("GUI");
-        Score score = gui.GetComponent<Score>();
-
+        useGUILayout = false;
         if (lives > 0) {
             for (int i = 0; i < lives; i++) {
-                Rect rectLeft = new Rect((score.getX() + (i * 30)), 50 + (score.getY() + score.getScoreHeight() + 20), texWidth * lives, texHeight);
-                Rect rectRight = new Rect(((Screen.width / 2) + (score.getX() + (i * 30))), 50 + (score.getY() + score.getScoreHeight() + 20), texWidth * lives, texHeight);
+                Rect rectLeft = new Rect(((i * texWidth) + (Screen.width / 32)), texHeight, texWidth, texHeight);
+                Rect rectRight = new Rect(((Screen.width / 2) + (i * texWidth) + (Screen.width / 32)), texHeight, texWidth, texHeight);
 
                 GUI.DrawTexture(rectLeft, tex);
                 GUI.DrawTexture(rectRight, tex);
@@ -28,6 +37,8 @@ public class healthBar : MonoBehaviour {
         } else {
             lives = 3;
             score.zeroLives();
+            myManager.setGameOver();
         }
     }
+
 }

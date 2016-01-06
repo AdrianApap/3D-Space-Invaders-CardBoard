@@ -4,16 +4,12 @@ using System.Collections;
 public class ShootBall : MonoBehaviour {
     public GameObject projectile;
     public float speed = 30;
-
-    // Use this for initialization
-    void Start () {
-	}
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKey("space") || Cardboard.SDK.Triggered)
         {
-            print("Shooting");
+            //print("Shooting");
             this.shoot();
         }
     }

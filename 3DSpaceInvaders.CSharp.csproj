@@ -92,14 +92,17 @@
     <Compile Include="Assets\Cardboard\Scripts\VRDevices\UnityEditorDevice.cs" />
     <Compile Include="Assets\Elementals\Scripts\OrbitCamera.cs" />
     <Compile Include="Assets\Elementals\Scripts\TestParticles.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Invader.cs" />
+    <Compile Include="Assets\Scripts\InvaderClose.cs" />
     <Compile Include="Assets\Scripts\InvaderHit.cs" />
-    <Compile Include="Assets\Scripts\Invaders.cs" />
     <Compile Include="Assets\Scripts\LoseLife.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
+    <Compile Include="Assets\Scripts\ScrollingText.cs" />
     <Compile Include="Assets\Scripts\Shoot.cs" />
     <Compile Include="Assets\Scripts\ShootBall.cs" />
     <Compile Include="Assets\Scripts\ShowCrossHair.cs" />
-    <Compile Include="Assets\Scripts\healthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Cardboard\Distortion\CardboardDistortion.cginc" />
