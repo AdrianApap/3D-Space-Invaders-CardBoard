@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
                         if (!float.IsNaN(result.x) && !float.IsNaN(result.y) && !float.IsNaN(result.z)) {
                             //tmpRigid.velocity += result;
                             //tmpRigid.position += tmpRigid.velocity;
-                            if(this.getDistanceFromPlayer(tmpRigid) < 30) {
+                            if(this.getDistanceFromPlayer(tmpRigid) < 40) {
                                 //If close stop being part of swarm and move towards player
                                 invaders[i].transform.position = Vector3.MoveTowards(pos, new Vector3(0,0,0), 1 * step * Time.deltaTime);
                             } else {
@@ -237,12 +237,12 @@ public class GameManager : MonoBehaviour {
         this.levelStart = true;
         this.level = 1;
         this.step = this.intialStep;
-        currentMaxInvaders = 10;
         for (int i = 0; i < currentMaxInvaders; i++) {
             if (invaders[i] != null) {
                 Destroy(invaders[i]);
             }
         }
+        currentMaxInvaders = 10;
         invaders = new GameObject[currentMaxInvaders];
     }
 }
