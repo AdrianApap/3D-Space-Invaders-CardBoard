@@ -1,21 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class GameManager : MonoBehaviour {
-    public static int currentMaxInvaders = 10;
+    //Attributes
+    //GUI Attributes
+    private GUIStyle guiStyle;
+    private int levelStringWidth;
+
+    //Game Attributes
+    private List<GameObject> invaders;
+    public int currentMaxInvaders = 10;
     public int difficultyIncrement = 5;
     public int step = 1;
     private int intialStep = 0;
     public GameObject invader;
     public Transform target;
-    private GameObject[] invaders;
     private Vector3 spawnPos;
-    private GUIStyle guiStyle;
+
+    //Level Attributes
+    private int level = 1;
     private bool gameStart = true;
     private bool levelStart = true;
-    private int levelStringWidth;
-    private int level = 1;
     private bool gameOver = false;
+
 
     // Use this for initialization
     void Start() {
@@ -69,36 +78,35 @@ public class GameManager : MonoBehaviour {
                 gameStart = false;
                 gameOver = false;
                 Time.timeScale = 1;
-                invaders = new GameObject[currentMaxInvaders];
-                this.spawnInvaders(currentMaxInvaders);
+                invaders = new List<GameObject>(currentMaxInvaders);
+                this.spawnInvaders();
             }
         } else {
-            //Current Level Move Invaders
-            if (this.countInvaders() > 0) {
-                Vector3 v1, v2, v3, v4;
-                for (int i = 0; i < currentMaxInvaders; i++) {
-                    if (invaders[i] != null) {
-                        Rigidbody tmpRigid = invaders[i].GetComponent<Rigidbody>();
-                        Vector3 pos = invaders[i].transform.position;
-                        v1 = rule1(tmpRigid);
-                        v2 = rule2(tmpRigid);
-                        v3 = rule3(tmpRigid);
-                        v4 = moveTowardsCam(tmpRigid);
+            this.removeAllNulls();
 
-                        invaders[i].transform.LookAt(target);
-                        Vector3 result = v1+v2+v3+v4;
-                        if (!float.IsNaN(result.x) && !float.IsNaN(result.y) && !float.IsNaN(result.z)) {
-                            //tmpRigid.velocity += result;
-                            //tmpRigid.position += tmpRigid.velocity;
-                            if(this.getDistanceFromPlayer(tmpRigid) < 40) {
+            //Current Level Move Invaders
+            if (this.invaders.Count > 0) {
+                if (this.invaders.Count > 1) {
+                    for (int i = 0; i < this.invaders.Count; i++) {
+                        if (invaders[i] != null) {
+                            Rigidbody tmpRigid = invaders[i].GetComponent<Rigidbody>();
+                            Vector3 currentPos = invaders[i].transform.position;
+                            Vector3 goalPos = this.getSwarmPos(tmpRigid);
+                            invaders[i].transform.LookAt(target);
+
+                            if (this.getDistanceFromPlayer(tmpRigid) < 40) {
                                 //If close stop being part of swarm and move towards player
-                                invaders[i].transform.position = Vector3.MoveTowards(pos, new Vector3(0,0,0), 1 * step * Time.deltaTime);
+                                tmpRigid.velocity += goalPos;
+                                //invaders[i].transform.position = Vector3.MoveTowards(currentPos, new Vector3(0, 0, 0), 1 * step * Time.deltaTime);
                             } else {
                                 //Use Swarm intelligence
-                                invaders[i].transform.position = Vector3.MoveTowards(pos, result, 1 * step * Time.deltaTime);
+                                invaders[i].transform.position = Vector3.MoveTowards(currentPos, goalPos, 1 * step * Time.deltaTime);
                             }
+
                         }
                     }
+                } else {
+                    invaders[0].transform.position = Vector3.MoveTowards(invaders[0].transform.position, new Vector3(0, 0, 0), 1 * step * Time.deltaTime);
                 }
             } else {
                 //New Level
@@ -110,91 +118,70 @@ public class GameManager : MonoBehaviour {
                 if (currentMaxInvaders <= 40) {
                     currentMaxInvaders += difficultyIncrement;
                 }
-                invaders = new GameObject[currentMaxInvaders];
-                this.spawnInvaders(currentMaxInvaders);
+                invaders = new List<GameObject>(currentMaxInvaders);
+                this.spawnInvaders();
             }
         }
     }
 
-    //Rule 1
-    Vector3 rule1(Rigidbody inv) {
-        Vector3 tmpVector = new Vector3(0, 0, 0);
-        for (int i = 0; i < currentMaxInvaders; i++) {
+    //Get Swarm Pos
+    Vector3 getSwarmPos(Rigidbody inv) {
+        Vector3 vector1 = new Vector3(0, 0, 0);
+        Vector3 vector2 = new Vector3(0, 0, 0);
+        Vector3 vector3 = new Vector3(0, 0, 0);
+        Vector3 vector4 = new Vector3(0, 0, 0);
+
+        for (int i = 0; i < this.invaders.Count; i++) {
             if (invaders[i] != null) {
                 if (!invaders[i].Equals(inv)) {
+                    //Rule 1
                     Rigidbody tmpRigid = invaders[i].GetComponent<Rigidbody>();
-                    tmpVector += tmpRigid.position;
-                }
-            }
-        }
-        tmpVector = tmpVector / (this.countInvaders() - 1);
+                    vector1 += tmpRigid.position;
 
-        return (tmpVector - inv.position) / 100;
-    }
-
-    //Rule 2
-    Vector3 rule2(Rigidbody inv) {
-        Vector3 tmpVector = new Vector3(0, 0, 0);
-        for (int i = 0; i < currentMaxInvaders; i++) {
-            if (invaders[i] != null) {
-                if (!invaders[i].Equals(inv)) {
-                    Rigidbody tmpRigid = invaders[i].GetComponent<Rigidbody>();
+                    //Rule 2
                     if ((tmpRigid.position - inv.position).magnitude < 25) {
-                        tmpVector -= (tmpRigid.position - inv.position);
+                        vector2 -= (tmpRigid.position - inv.position);
                     }
+
+                    //Rule 3
+                    vector3 += tmpRigid.velocity;
                 }
             }
         }
-        return tmpVector;
-    }
 
-    //Rule 3
-    Vector3 rule3(Rigidbody inv) {
-        Vector3 tmpVector = new Vector3(0, 0, 0);
-        for (int i = 0; i < currentMaxInvaders; i++) {
-            if (invaders[i] != null) {
-                if (!invaders[i].Equals(inv)) {
-                    Rigidbody tmpRigid = invaders[i].GetComponent<Rigidbody>();
-                    tmpVector += tmpRigid.velocity;
-                }
-            }
-        }
-        tmpVector = tmpVector / (this.countInvaders() - 1);
-        return (tmpVector - inv.velocity) / 8;
-    }
+        int currentInvaders = this.invaders.Count;
 
-    //Rule 4
-    //Move Towards Camera
-    Vector3 moveTowardsCam(Rigidbody inv) {
-        Vector3 tmpVector = new Vector3(0, 0, 0);
-        return (tmpVector - inv.position) / 100;
+        //Rule 1
+        vector1 = (vector1 / (currentInvaders - 1));
+        vector1 = (vector1 - inv.position) / 100;
+
+        //Rule 2
+
+        //Rule 3
+        vector3 = vector3 / (currentInvaders - 1);
+        vector3 = (vector3 - inv.velocity) / 8;
+
+        //Rule 4
+        vector4 = (vector4 - inv.position) / 100;
+
+        return (vector1 + vector2 + vector3 + vector4);
     }
 
 
-    public float getDistanceFromPlayer(Rigidbody inv) {
+    float getDistanceFromPlayer(Rigidbody inv) {
         Vector3 tmpVector = new Vector3(0, 0, 0);
         float distance = (inv.position - tmpVector).magnitude;
         return distance;
     }
 
     //Spawn the invaders
-    void spawnInvaders(int invaderCount) {
-        for (int i = 0; i < invaderCount; i++) {
+    void spawnInvaders() {
+        for (int i = 0; i < this.currentMaxInvaders; i++) {
             Vector3 pos = makeNew();
-            invaders[i] = Instantiate(invader, pos, transform.rotation) as GameObject;
-            invaders[i].name = "Spawn" + i.ToString();
+            GameObject tmpInvader = Instantiate(invader, pos, transform.rotation) as GameObject;
+            tmpInvader.name = "Spawn" + i.ToString();
+            this.invaders.Add(tmpInvader);
         }
-    }
-
-    //Counts the number of live invaders
-    int countInvaders() {
-        int count = 0;
-        for (int i = 0; i < currentMaxInvaders; i++) {
-            if (invaders[i] != null) {
-                count++;
-            }
-        }
-        return count;
     }
 
     public void setGameOver() {
@@ -229,7 +216,11 @@ public class GameManager : MonoBehaviour {
         return pos;
     }
 
-    private void resetGame() {
+    void removeAllNulls() {
+        this.invaders.RemoveAll(item => item == null);
+    }
+
+    void resetGame() {
         GameObject gui = GameObject.Find("GUI");
         HealthBar bar = gui.GetComponent<HealthBar>();
         bar.lives = 3;
@@ -243,6 +234,7 @@ public class GameManager : MonoBehaviour {
             }
         }
         currentMaxInvaders = 10;
-        invaders = new GameObject[currentMaxInvaders];
+        invaders = new List<GameObject>(currentMaxInvaders);
     }
 }
+
